@@ -1,0 +1,204 @@
+{
+    "prior_probabilities": {
+        "Theft": {
+            "True": 0.3,
+            "False": 0.7
+        },
+        "Earthquake": {
+            "True": 0.2,
+            "False": 0.8
+        },
+        "Rain": {
+            "True": 0.3,
+            "False": 0.7
+        }
+    },
+    "conditional_probabilities": {
+        "Flood": [
+            {
+                "Rain": "True",
+                "own_value": "True",
+                "probability": 0.667
+            },
+            {
+                "Rain": "True",
+                "own_value": "False",
+                "probability": 0.33
+            },
+            {
+                "Rain": "False",
+                "own_value": "False",
+                "probability": 0.857
+            },
+            {
+                "Rain": "False",
+                "own_value": "True",
+                "probability": 0.143
+            }
+        ],
+        "Monitor": [
+            {
+                "Earthquake": "True",
+                "Theft": "True",
+                "own_value": "True",
+                "probability": 0
+            },
+            {
+                "Earthquake": "True",
+                "Theft": "True",
+                "own_value": "False",
+                "probability": 0
+            },
+            {
+                "Earthquake": "True",
+                "Theft": "False",
+                "own_value": "True",
+                "probability": 0.5
+            },
+            {
+                "Earthquake": "True",
+                "Theft": "False",
+                "own_value": "False",
+                "probability": 0.5
+            },
+            {
+                "Earthquake": "False",
+                "Theft": "True",
+                "own_value": "True",
+                "probability": 0.667
+            },
+            {
+                "Earthquake": "False",
+                "Theft": "True",
+                "own_value": "False",
+                "probability": 0.333
+            },
+            {
+                "Earthquake": "False",
+                "Theft": "False",
+                "own_value": "True",
+                "probability": 0.4
+            },
+            {
+                "Earthquake": "False",
+                "Theft": "False",
+                "own_value": "False",
+                "probability": 0.6
+            }
+        ],
+        "Alarm": [
+            {
+                "Flood": "True",
+                "Earthquake": "True",
+                "Theft": "True",
+                "own_value": "True",
+                "probability": 1
+            },
+            {
+                "Flood": "True",
+                "Earthquake": "True",
+                "Theft": "True",
+                "own_value": "False",
+                "probability": 0
+            },
+            {
+                "Flood": "False",
+                "Earthquake": "True",
+                "Theft": "True",
+                "own_value": "True",
+                "probability": 1
+            },
+            {
+                "Flood": "False",
+                "Earthquake": "True",
+                "Theft": "True",
+                "own_value": "False",
+                "probability": 0
+            },
+            {
+                "Flood": "True",
+                "Earthquake": "False",
+                "Theft": "True",
+                "own_value": "True",
+                "probability": 1
+            },
+            {
+                "Flood": "True",
+                "Earthquake": "False",
+                "Theft": "True",
+                "own_value": "False",
+                "probability": 0
+            },
+            {
+                "Flood": "True",
+                "Earthquake": "True",
+                "Theft": "False",
+                "own_value": "True",
+                "probability": 1
+            },
+            {
+                "Flood": "True",
+                "Earthquake": "True",
+                "Theft": "False",
+                "own_value": "False",
+                "probability": 0
+            },
+            {
+                "Flood": "False",
+                "Earthquake": "False",
+                "Theft": "False",
+                "own_value": "True",
+                "probability": 0.333
+            },
+            {
+                "Flood": "False",
+                "Earthquake": "False",
+                "Theft": "False",
+                "own_value": "False",
+                "probability": 0.667
+            },
+            {
+                "Flood": "False",
+                "Earthquake": "False",
+                "Theft": "True",
+                "own_value": "True",
+                "probability": 1
+            },
+            {
+                "Flood": "False",
+                "Earthquake": "False",
+                "Theft": "True",
+                "own_value": "False",
+                "probability": 0
+            },
+            {
+                "Flood": "False",
+                "Earthquake": "True",
+                "Theft": "False",
+                "own_value": "True",
+                "probability": 1
+            },
+            {
+                "Flood": "False",
+                "Earthquake": "True",
+                "Theft": "False",
+                "own_value": "False",
+                "probability": 0
+            },
+            {
+                "Flood": "True",
+                "Earthquake": "False",
+                "Theft": "False",
+                "own_value": "True",
+                "probability": 1
+            },
+            {
+                "Flood": "True",
+                "Earthquake": "False",
+                "Theft": "False",
+                "own_value": "False",
+                "probability": 0
+            }
+        ]
+    }
+}

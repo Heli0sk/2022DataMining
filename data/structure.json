@@ -1,0 +1,42 @@
+{
+    "variables": {
+        "Rain": [
+            "True",
+            "False"
+        ],
+        "Earthquake": [
+            "True",
+            "False"
+        ],
+        "Alarm": [
+            "True",
+            "False"
+        ],
+        "Flood": [
+            "True",
+            "False"
+        ],
+        "Monitor": [
+            "True",
+            "False"
+        ],
+        "Theft": [
+            "True",
+            "False"
+        ]
+    },
+    "dependencies": {
+        "Alarm": [
+            "Flood",
+            "Earthquake",
+            "Theft"
+        ],
+        "Flood": [
+            "Rain"
+        ],
+        "Monitor": [
+            "Earthquake",
+            "Theft"
+        ]
+    }
+}
