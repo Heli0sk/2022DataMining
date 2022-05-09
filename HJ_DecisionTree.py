@@ -71,9 +71,10 @@ def creatDecisionTree(features, labels, show=False):
     model = HJtree.fit(features, labels)
     fn = ['band0', 'band1', 'band2']
     cn = ['land', 'building', 'sea']
-    plt.figure()
-    tree.plot_tree(HJtree, feature_names=fn, class_names=cn, filled=True)
-    plt.show()
+    if show:
+        plt.figure()
+        tree.plot_tree(HJtree, feature_names=fn, class_names=cn, filled=True)
+        plt.show()
     return HJtree, model
 
 
