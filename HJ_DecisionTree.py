@@ -1,6 +1,8 @@
 from sklearn import tree
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
+from PIL import Image
 
 
 def loadData(path, row, col, bands=3):
@@ -50,18 +52,64 @@ def preProcess(data, row, col, bands=3):
             for j in range(662, 820):
                 band[b].append(data[b][i*row+j])
                 clas.append(2)
-    # return band, clas
     # band[0], band[1], band[2], class
     res = pd.DataFrame(list(zip(band[0], band[1], band[2], clas)), columns=['band1', 'band2', 'band3', 'class'])
     res.to_csv('data/HJdata.csv', index=False)
     return res
 
 
+def gen_TestSet(orgdata, save=False):
+    res = pd.DataFrame(list(zip(orgdata[0], orgdata[1], orgdata[2])), columns=['band1', 'band2', 'band3'])
+    if save:
+        res.to_csv('data/allbands.csv', index=False)
+    return res
+
+
+def creatDecisionTree(features, labels, show=False):
+    HJtree = tree.DecisionTreeClassifier(max_depth=3, min_samples_leaf=50)
+    model = HJtree.fit(features, labels)
+    fn = ['band0', 'band1', 'band2']
+    cn = ['land', 'building', 'sea']
+    plt.figure()
+    tree.plot_tree(HJtree, feature_names=fn, class_names=cn, filled=True)
+    plt.show()
+    return HJtree, model
+
+
+def predictSamples(model, samples):
+    preLables = list(model.predict(samples))
+    print(len(preLables))
+    lableMat = np.array(preLables).reshape((813, 1440)).tolist()
+    lableMat = np.where(lableMat)
+    for i in range(813):
+        for j in range(1440):
+            if lableMat[i][j] == 0:
+                lableMat[i][j] = [0, 255, 0]
+            elif lableMat[i][j] == 1:
+                lableMat[i][j] = [255, 255, 255]
+            elif lableMat[i][j] == 2:
+                lableMat[i][j] = [0, 0, 255]
+    return lableMat
+
+
 if __name__ == "__main__":
-    org_data = loadData('data/HJ1A-CCD2-450-72-20091015.img', 1440, 813, 3)
-    # print(org_data)
-    data = preProcess(org_data, 1440, 813, 3)
-    print(data.head())
+    # org_data = loadData('data/HJ1A-CCD2-450-72-20091015.img', 1440, 813, 3)
+    # print(len(org_data))
+    # testset = gen_TestSet(org_data, save=True)
+    # data = preProcess(org_data, 1440, 813, 3)
+    # print(data.head())
+
+    fdata = pd.read_csv('data/HJdata.csv').values
+    testdata = pd.read_csv('data/allbands.csv').values
+    print(fdata.shape)
+    features = fdata[:, :3]
+    labels = fdata[:, 3]
+
+    DecisionTree, DTmodel = creatDecisionTree(features, labels, False)
+    predictRes = predictSamples(DTmodel, testdata)
+    img = Image.fromarray(np.uint8(predictRes))
+    img.show()
+
 
 '''
 三类分别是：
