@@ -81,7 +81,6 @@ def predictSamples(model, samples):
     preLables = list(model.predict(samples))
     print(len(preLables))
     lableMat = np.array(preLables).reshape((813, 1440)).tolist()
-    lableMat = np.where(lableMat)
     for i in range(813):
         for j in range(1440):
             if lableMat[i][j] == 0:
@@ -102,12 +101,13 @@ if __name__ == "__main__":
 
     # fdata = pd.read_csv('data/HJdata.csv').values
     # testdata = pd.read_csv('data/allbands.csv').values
-    print(org_data.shape)
-    features = org_data[:, :3]
-    labels = org_data[:, 3]
+    data = data.values
+    print(data.shape)
+    features = data[:, :3]
+    labels = data[:, 3]
 
     DecisionTree, DTmodel = creatDecisionTree(features, labels, False)
-    predictRes = predictSamples(DTmodel, testset)
+    predictRes = predictSamples(DTmodel, testset.values)
     img = Image.fromarray(np.uint8(predictRes))
     img.show()
 
