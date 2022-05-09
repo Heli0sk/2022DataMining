@@ -25,7 +25,7 @@ def loadData(path, row, col, bands=3):
     return bd
 
 
-def preProcess(data, row, col, bands=3):
+def preProcess(data, row, col, bands=3, save=False):
     """
     :param data:
     :param row:
@@ -54,7 +54,8 @@ def preProcess(data, row, col, bands=3):
                 clas.append(2)
     # band[0], band[1], band[2], class
     res = pd.DataFrame(list(zip(band[0], band[1], band[2], clas)), columns=['band1', 'band2', 'band3', 'class'])
-    res.to_csv('data/HJdata.csv', index=False)
+    if save:
+        res.to_csv('data/HJdata.csv', index=False)
     return res
 
 
@@ -93,20 +94,20 @@ def predictSamples(model, samples):
 
 
 if __name__ == "__main__":
-    # org_data = loadData('data/HJ1A-CCD2-450-72-20091015.img', 1440, 813, 3)
-    # print(len(org_data))
-    # testset = gen_TestSet(org_data, save=True)
-    # data = preProcess(org_data, 1440, 813, 3)
-    # print(data.head())
+    org_data = loadData('data/HJ1A-CCD2-450-72-20091015.img', 1440, 813, 3)
+    print(len(org_data))
+    data = preProcess(org_data, 1440, 813, 3)
+    print(data.head())
+    testset = gen_TestSet(org_data, save=False)
 
-    fdata = pd.read_csv('data/HJdata.csv').values
-    testdata = pd.read_csv('data/allbands.csv').values
-    print(fdata.shape)
-    features = fdata[:, :3]
-    labels = fdata[:, 3]
+    # fdata = pd.read_csv('data/HJdata.csv').values
+    # testdata = pd.read_csv('data/allbands.csv').values
+    print(org_data.shape)
+    features = org_data[:, :3]
+    labels = org_data[:, 3]
 
     DecisionTree, DTmodel = creatDecisionTree(features, labels, False)
-    predictRes = predictSamples(DTmodel, testdata)
+    predictRes = predictSamples(DTmodel, testset)
     img = Image.fromarray(np.uint8(predictRes))
     img.show()
 
